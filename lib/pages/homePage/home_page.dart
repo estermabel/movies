@@ -34,32 +34,28 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         color: DARK_BLUE,
         height: MediaQuery.of(context).size.height,
-        child: ListView(
-          children: [
-            StreamBuilder<List<Movie>>(
-              stream: bloc.moviesStream,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  var movies = snapshot.data;
-                  return Container(
-                    height: MediaQuery.of(context).size.height,
-                    child: ListView.builder(
-                      itemCount: movies.length,
-                      itemBuilder: (context, index) {
-                        return movieCard(movies[index]);
-                      },
-                    ),
-                  );
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      backgroundColor: SALMON,
-                    ),
-                  );
-                }
-              },
-            ),
-          ],
+        child: StreamBuilder<List<Movie>>(
+          stream: bloc.moviesStream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              var movies = snapshot.data;
+              return Container(
+                height: MediaQuery.of(context).size.height,
+                child: ListView.builder(
+                  itemCount: movies.length,
+                  itemBuilder: (context, index) {
+                    return movieCard(movies[index]);
+                  },
+                ),
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: SALMON,
+                ),
+              );
+            }
+          },
         ),
       ),
     );
