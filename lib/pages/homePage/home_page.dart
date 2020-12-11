@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies/api/movie_repository.dart';
 import 'package:movies/models/movie_model.dart';
 import 'package:movies/pages/homePage/home_bloc.dart';
+import 'package:movies/pages/moviePage/movie_page.dart';
 import 'package:movies/utils/components/appBar_item.dart';
 import 'package:movies/utils/constants.dart';
 
@@ -16,7 +17,14 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    debugPrint("ENTRANDO NA TELA HOME");
     bloc.getMovies();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    debugPrint("SAINDO DA TELA HOME");
   }
 
   @override
@@ -60,8 +68,12 @@ class _HomePageState extends State<HomePage> {
   GestureDetector movieCard(Movie movie) {
     return GestureDetector(
       onTap: () {
-        //MoviePage(movie);
-        debugPrint("CLICADO");
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MoviePage(movie: movie),
+          ),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -80,16 +92,19 @@ class _HomePageState extends State<HomePage> {
           ),
           child: Row(
             children: [
-              Container(
-                height: 200,
-                width: 130,
-                decoration: BoxDecoration(
-                  color: SALMON,
-                  borderRadius: BorderRadius.circular(20),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                      'https://image.tmdb.org/t/p/original${movie.backdropPath}',
+              Hero(
+                tag: '${movie.id}',
+                child: Container(
+                  height: 200,
+                  width: 130,
+                  decoration: BoxDecoration(
+                    color: SALMON,
+                    borderRadius: BorderRadius.circular(20),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                        'https://image.tmdb.org/t/p/original${movie.backdropPath}',
+                      ),
                     ),
                   ),
                 ),
