@@ -1,16 +1,14 @@
 # movies
 
-A new Flutter project.
+Projeto flutter criado com o intuíto de estudar BLoC.
 
-## Getting Started
+## ScreenShots
 
-This project is a starting point for a Flutter application.
+1. HomePage
 
-A few resources to get you started if this is your first Flutter project:
+![rsz_1simulator_screen_shot_-_iphone_11_-_2020-12-11_at_143927](https://user-images.githubusercontent.com/51540772/101938878-e5cc5580-3bc2-11eb-82cc-ddae16359337.png)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+2. MoviePage
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![rsz_simulator_screen_shot_-_iphone_11_-_2020-12-11_at_144621](https://user-images.githubusercontent.com/51540772/101938884-e6fd8280-3bc2-11eb-9be3-0d7f7c1c1cab.png)
+
