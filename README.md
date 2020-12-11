@@ -6,10 +6,9 @@ Projeto flutter criado com o intuíto de estudar BLoC.
 
 1. HomePage
 
-![Simulator Screen Shot - iPhone 11 - 2020-12-11 at 14 39 27](https://user-images.githubusercontent.com/51540772/101938148-a3564900-3bc1-11eb-87e9-67192f7ddf59.png)
+![rsz_1simulator_screen_shot_-_iphone_11_-_2020-12-11_at_143927](https://user-images.githubusercontent.com/51540772/101938878-e5cc5580-3bc2-11eb-82cc-ddae16359337.png)
 
 2. MoviePage
 
-![Simulator Screen Shot - iPhone 11 - 2020-12-11 at 14 46 21](https://user-images.githubusercontent.com/51540772/101938288-d567ab00-3bc1-11eb-85fa-eb7e9303dd36.png)
-
+![rsz_simulator_screen_shot_-_iphone_11_-_2020-12-11_at_144621](https://user-images.githubusercontent.com/51540772/101938884-e6fd8280-3bc2-11eb-9be3-0d7f7c1c1cab.png)
 
