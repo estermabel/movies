@@ -1,3 +1,5 @@
+import 'package:movies/models/video_model.dart';
+
 class Movie {
   int id;
   String backdropPath;
@@ -9,18 +11,21 @@ class Movie {
   String releaseDate;
   String title;
   double voteAverage;
+  bool video;
 
-  Movie(
-      {this.backdropPath,
-      this.id,
-      this.originalLanguage,
-      this.originalTitle,
-      this.overview,
-      this.popularity,
-      this.posterPath,
-      this.releaseDate,
-      this.title,
-      this.voteAverage});
+  Movie({
+    this.backdropPath,
+    this.id,
+    this.originalLanguage,
+    this.originalTitle,
+    this.overview,
+    this.popularity,
+    this.posterPath,
+    this.releaseDate,
+    this.title,
+    this.voteAverage,
+    this.video,
+  });
 
   Movie.fromJson(Map<String, dynamic> json) {
     backdropPath = json['backdrop_path'];
@@ -33,6 +38,7 @@ class Movie {
     releaseDate = json['release_date'];
     title = json['title'];
     voteAverage = json['vote_average'].toDouble();
+    video = json['video'];
   }
 
   Map<String, dynamic> toJson() {
@@ -47,6 +53,7 @@ class Movie {
     data['release_date'] = this.releaseDate;
     data['title'] = this.title;
     data['vote_average'] = this.voteAverage;
+    data['video'] = this.video;
     return data;
   }
 }

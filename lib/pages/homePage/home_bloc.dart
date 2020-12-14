@@ -7,6 +7,8 @@ import 'package:movies/models/movie_model.dart';
 class HomeBloc {
   final MovieRepository repository;
   StreamController<List<Movie>> _moviesController = StreamController();
+  Stream<List<Movie>> get moviesStream => _moviesController.stream;
+  Sink<List<Movie>> get moviesSink => _moviesController.sink;
 
   HomeBloc(this.repository);
 
@@ -17,6 +19,7 @@ class HomeBloc {
     }
   }
 
-  Stream<List<Movie>> get moviesStream => _moviesController.stream;
-  Sink<List<Movie>> get moviesSink => _moviesController.sink;
+  dispose() {
+    _moviesController.close();
+  }
 }

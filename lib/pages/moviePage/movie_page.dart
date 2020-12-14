@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:movies/api/video_repository.dart';
 import 'package:movies/models/movie_model.dart';
+import 'package:movies/models/results_model.dart';
+import 'package:movies/models/video_model.dart';
 import 'package:movies/pages/moviePage/movie_page_bloc.dart';
 import 'package:movies/utils/components/appBar_item.dart';
+import 'package:movies/utils/components/youtubeVideo_item.dart';
 import 'package:movies/utils/constants.dart';
+import 'package:movies/utils/helpers.dart';
 
 class MoviePage extends StatefulWidget {
   final Movie movie;
@@ -16,17 +21,24 @@ class MoviePage extends StatefulWidget {
 }
 
 class _MoviePageState extends State<MoviePage> {
-  MovieBloc bloc = MovieBloc();
+  MovieBloc bloc = MovieBloc(VideoRepository());
+  Movie movie;
+  Video video;
 
   @override
   void initState() {
     super.initState();
     debugPrint("ENTRANDO NA TELA DO FILME");
+    movie = widget.movie;
+    if (movie.id != null) {
+      bloc.getVideo(movie.id);
+    }
   }
 
   @override
   void dispose() {
     super.dispose();
+    bloc.dispose();
     debugPrint("SAINDO DA TELA DO FILME");
   }
 
@@ -39,7 +51,7 @@ class _MoviePageState extends State<MoviePage> {
         child: Column(
           children: [
             Hero(
-              tag: '${widget.movie.id}',
+              tag: '${movie.id}',
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.3,
                 width: MediaQuery.of(context).size.width,
@@ -61,7 +73,7 @@ class _MoviePageState extends State<MoviePage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(
+                      child: SelectableText(
                         widget.movie.title,
                         style: TextStyle(
                           color: Colors.white,
@@ -80,7 +92,7 @@ class _MoviePageState extends State<MoviePage> {
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         children: [
-                          Text(
+                          SelectableText(
                             "Nota: ",
                             style: TextStyle(
                               color: Colors.cyan[200],
@@ -88,8 +100,8 @@ class _MoviePageState extends State<MoviePage> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Text(
-                            "${widget.movie.voteAverage}",
+                          SelectableText(
+                            "${movie.voteAverage}",
                             style: TextStyle(
                               color: Colors.grey[200],
                               fontSize: 22,
@@ -107,7 +119,7 @@ class _MoviePageState extends State<MoviePage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(
+                      child: SelectableText(
                         "Descrição:",
                         style: TextStyle(
                           color: Colors.cyan[200],
@@ -118,8 +130,8 @@ class _MoviePageState extends State<MoviePage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "${widget.movie.overview}",
+                      child: SelectableText(
+                        "${movie.overview}",
                         style: TextStyle(
                           color: Colors.grey[200],
                           fontSize: 17,
@@ -134,7 +146,7 @@ class _MoviePageState extends State<MoviePage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(
+                      child: SelectableText(
                         "Data de Lançamento:",
                         style: TextStyle(
                           color: Colors.cyan[200],
@@ -145,13 +157,61 @@ class _MoviePageState extends State<MoviePage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "${widget.movie.releaseDate}",
+                      child: SelectableText(
+                        Helpers.formatDate("${movie.releaseDate}"),
                         style: TextStyle(
                           color: Colors.grey[200],
                           fontSize: 17,
                         ),
                       ),
+                    ),
+                    StreamBuilder(
+                      stream: bloc.videoStream,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          video = snapshot.data;
+                          List<Result> results = video.results;
+                          if (results.isNotEmpty) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Divider(
+                                  color: SALMON,
+                                  thickness: 1.5,
+                                  endIndent: 10,
+                                  indent: 8,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SelectableText(
+                                    "Trailer:",
+                                    style: TextStyle(
+                                      color: Colors.cyan[200],
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.3,
+                                  width: MediaQuery.of(context).size.width,
+                                  child:
+                                      YoutubeVideoItem(id: results.first.key),
+                                ),
+                              ],
+                            );
+                          } else {
+                            return Text("Filme não tem trailer!");
+                          }
+                        } else {
+                          return Center(
+                            child: CircularProgressIndicator(
+                              backgroundColor: SALMON,
+                            ),
+                          );
+                        }
+                      },
                     ),
                   ],
                 ),

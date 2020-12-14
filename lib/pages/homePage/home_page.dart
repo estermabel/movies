@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movies/api/movie_repository.dart';
 import 'package:movies/models/movie_model.dart';
+import 'package:movies/pages/favoritosPage/favoritos_page.dart';
 import 'package:movies/pages/homePage/home_bloc.dart';
 import 'package:movies/pages/moviePage/movie_page.dart';
 import 'package:movies/utils/components/appBar_item.dart';
 import 'package:movies/utils/constants.dart';
+import 'package:movies/utils/helpers.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,6 +15,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   HomeBloc bloc = HomeBloc(MovieRepository());
+  final List<Widget> _telas = [
+    HomePage(),
+    FavoritosPage(),
+  ];
 
   @override
   void initState() {
@@ -24,6 +30,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     super.dispose();
+    bloc.dispose();
     debugPrint("SAINDO DA TELA HOME");
   }
 
@@ -31,6 +38,29 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: myAppBar(),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: BLUE,
+        selectedIconTheme: kSELECTED_ICON,
+        unselectedIconTheme: kUNSELECTED_ICON,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        selectedLabelStyle: TextStyle(
+          color: Colors.white,
+          decorationColor: Colors.white,
+        ),
+        onTap: (value) {},
+        currentIndex: 0,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: "Favoritos",
+          ),
+        ],
+      ),
       body: Container(
         color: DARK_BLUE,
         height: MediaQuery.of(context).size.height,
@@ -39,15 +69,21 @@ class _HomePageState extends State<HomePage> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               var movies = snapshot.data;
-              return Container(
-                height: MediaQuery.of(context).size.height,
-                child: ListView.builder(
-                  itemCount: movies.length,
-                  itemBuilder: (context, index) {
-                    return movieCard(movies[index]);
-                  },
-                ),
-              );
+              if (movies.isNotEmpty) {
+                return Container(
+                  height: MediaQuery.of(context).size.height,
+                  child: ListView.builder(
+                    itemCount: movies.length,
+                    itemBuilder: (context, index) {
+                      return movieCard(movies[index]);
+                    },
+                  ),
+                );
+              } else {
+                return Center(
+                  child: Text("Ainda não temos filmes disponíveis!"),
+                );
+              }
             } else {
               return Center(
                 child: CircularProgressIndicator(
@@ -72,8 +108,9 @@ class _HomePageState extends State<HomePage> {
         );
       },
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(18.0),
         child: Container(
+          width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             color: LIGHT_BLUE,
             borderRadius: BorderRadius.circular(20),
@@ -133,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     SizedBox(height: 5),
                     Text(
-                      "${movie.releaseDate}",
+                      Helpers.formatDate("${movie.releaseDate}"),
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 14,
