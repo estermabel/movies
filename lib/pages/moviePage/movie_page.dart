@@ -82,7 +82,6 @@ class _MoviePageState extends State<MoviePage> {
                           foregroundColor: Colors.white,
                           onPressed: () {
                             setState(() {
-                              debugPrint(snapshot.data.toString());
                               bloc.favButtonSink.add(!snapshot.data);
                             });
                           },
