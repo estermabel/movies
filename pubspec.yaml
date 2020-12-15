@@ -24,6 +24,7 @@ dependencies:
   flutter_bloc: ^6.1.1
   dio: ^3.0.10
   youtube_player_flutter: ^7.0.0+7
+  bubble_bottom_bar: ^1.2.0
   flutter:
     sdk: flutter
 

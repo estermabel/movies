@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:movies/pages/basePage/basePage.dart';
+import 'package:movies/pages/controllerPage/controllerPage.dart';
 import 'package:movies/pages/homePage/home_page.dart';
 import 'package:movies/utils/constants.dart';
 
@@ -20,7 +20,7 @@ class _SplashPageState extends State<SplashPage> {
     await Future.delayed(new Duration(seconds: 4));
     Navigator.of(context).pushReplacement(
       CupertinoPageRoute(
-        builder: (context) => BasePage(),
+        builder: (context) => ControllerPage(),
       ),
     );
   }

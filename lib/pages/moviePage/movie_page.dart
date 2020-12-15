@@ -24,6 +24,7 @@ class _MoviePageState extends State<MoviePage> {
   MovieBloc bloc = MovieBloc(VideoRepository());
   Movie movie;
   Video video;
+  bool _isActive = false;
 
   @override
   void initState() {
@@ -45,7 +46,7 @@ class _MoviePageState extends State<MoviePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(),
+      appBar: myAppBar(movie.title),
       body: Container(
         color: LIGHT_BLUE,
         child: Column(
@@ -71,16 +72,39 @@ class _MoviePageState extends State<MoviePage> {
                 padding: const EdgeInsets.all(8.0),
                 child: ListView(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SelectableText(
-                        widget.movie.title,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 50,
-                          fontWeight: FontWeight.bold,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SelectableText(
+                            movie.title,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 50,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: FloatingActionButton(
+                            onPressed: () {
+                              setState(() {
+                                _isActive = !_isActive;
+                              });
+                            },
+                            backgroundColor: SALMON,
+                            elevation: 3,
+                            child: Icon(
+                              _isActive == false
+                                  ? Icons.favorite_border_outlined
+                                  : Icons.favorite,
+                              color: DARK_BLUE,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     Divider(
                       color: SALMON,
@@ -158,7 +182,9 @@ class _MoviePageState extends State<MoviePage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SelectableText(
-                        Helpers.formatDate("${movie.releaseDate}"),
+                        Helpers.formatDate(
+                          "${movie.releaseDate}",
+                        ),
                         style: TextStyle(
                           color: Colors.grey[200],
                           fontSize: 17,

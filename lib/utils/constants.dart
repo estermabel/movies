@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movies/models/movie_model.dart';
+
 
 //#1d2d50
 const Color DARK_BLUE = Color.fromRGBO(29, 45, 80, 1);
