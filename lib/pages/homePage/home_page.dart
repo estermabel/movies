@@ -15,10 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   HomeBloc bloc = HomeBloc(MovieRepository());
-  final List<Widget> _telas = [
-    HomePage(),
-    FavoritosPage(),
-  ];
+  
 
   @override
   void initState() {
@@ -38,29 +35,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: myAppBar(),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: BLUE,
-        selectedIconTheme: kSELECTED_ICON,
-        unselectedIconTheme: kUNSELECTED_ICON,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        selectedLabelStyle: TextStyle(
-          color: Colors.white,
-          decorationColor: Colors.white,
-        ),
-        onTap: (value) {},
-        currentIndex: 0,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: "Favoritos",
-          ),
-        ],
-      ),
       body: Container(
         color: DARK_BLUE,
         height: MediaQuery.of(context).size.height,
