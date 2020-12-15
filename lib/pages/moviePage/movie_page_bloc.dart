@@ -9,6 +9,10 @@ class MovieBloc {
   Stream<Video> get videoStream => _videoController.stream;
   Sink<Video> get videoSink => _videoController.sink;
 
+  StreamController<bool> _favButtonController = StreamController();
+  Stream<bool> get favButtonStream => _favButtonController.stream;
+  Sink<bool> get favButtonSink => _favButtonController.sink;
+
   MovieBloc(this.repository);
 
   getVideo(int movieId) async {
@@ -20,5 +24,6 @@ class MovieBloc {
 
   dispose() {
     _videoController.close();
+    _favButtonController.close();
   }
 }

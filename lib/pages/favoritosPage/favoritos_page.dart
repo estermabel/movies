@@ -9,7 +9,6 @@ class FavoritosPage extends StatefulWidget {
 }
 
 class _FavoritosPageState extends State<FavoritosPage> {
-  FavoritosBloc bloc = FavoritosBloc();
   @override
   void initState() {
     super.initState();
