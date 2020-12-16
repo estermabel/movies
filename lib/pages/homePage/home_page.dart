@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar("Movies"),
+      appBar: myAppBar("Home"),
       body: Container(
         color: DARK_BLUE,
         height: MediaQuery.of(context).size.height,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/pages/favoritosPage/favoritos_bloc.dart';
 import 'package:movies/utils/components/appBar_item.dart';
 import 'package:movies/utils/constants.dart';
@@ -27,9 +28,6 @@ class _FavoritosPageState extends State<FavoritosPage> {
       appBar: myAppBar("Favoritos"),
       body: Container(
         color: DARK_BLUE,
-        child: ListView(
-          children: [],
-        ),
       ),
     );
   }

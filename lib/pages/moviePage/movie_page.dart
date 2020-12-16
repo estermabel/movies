@@ -26,13 +26,12 @@ class _MoviePageState extends State<MoviePage> {
   MovieBloc bloc = MovieBloc(VideoRepository());
   Movie movie;
   Video video;
-  bool _isActive = false;
 
   @override
   void initState() {
     super.initState();
-    debugPrint("ENTRANDO NA TELA DO FILME");
     movie = widget.movie;
+    debugPrint("ENTRANDO NA TELA DO FILME: -- ${movie.title} --");
     if (movie.id != null) {
       bloc.getVideo(movie.id);
     }
@@ -42,7 +41,7 @@ class _MoviePageState extends State<MoviePage> {
   void dispose() {
     super.dispose();
     bloc.dispose();
-    debugPrint("SAINDO DA TELA DO FILME");
+    debugPrint("SAINDO DA TELA DO FILME: -- ${movie.title} --");
   }
 
   @override
