@@ -24,16 +24,15 @@ class MoviePage extends StatefulWidget {
 
 class _MoviePageState extends State<MoviePage> {
   MovieBloc bloc = MovieBloc(VideoRepository());
-  Movie movie;
   Video video;
 
   @override
   void initState() {
     super.initState();
-    movie = widget.movie;
-    debugPrint("ENTRANDO NA TELA DO FILME: -- ${movie.title} --");
-    if (movie.id != null) {
-      bloc.getVideo(movie.id);
+    bloc.checkFavorito(widget.movie);
+    debugPrint("ENTRANDO NA TELA DO FILME: -- ${widget.movie.title} --");
+    if (widget.movie.id != null) {
+      bloc.getVideo(widget.movie.id);
     }
   }
 
@@ -41,13 +40,13 @@ class _MoviePageState extends State<MoviePage> {
   void dispose() {
     super.dispose();
     bloc.dispose();
-    debugPrint("SAINDO DA TELA DO FILME: -- ${movie.title} --");
+    debugPrint("SAINDO DA TELA DO FILME: -- ${widget.movie.title} --");
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(movie.title),
+      appBar: myAppBar(widget.movie.title),
       body: Container(
         color: LIGHT_BLUE,
         child: Column(
@@ -56,7 +55,7 @@ class _MoviePageState extends State<MoviePage> {
               alignment: Alignment.bottomRight,
               children: [
                 Hero(
-                  tag: '${movie.id}',
+                  tag: '${widget.movie.id}',
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.3,
                     width: MediaQuery.of(context).size.width,
@@ -79,9 +78,15 @@ class _MoviePageState extends State<MoviePage> {
                       builder: (context, snapshot) {
                         return FloatingActionButton(
                           foregroundColor: Colors.white,
-                          onPressed: () {
-                            setState(() {
-                              bloc.favButtonSink.add(!snapshot.data);
+                          onPressed: () async {
+                            await bloc
+                                .handleFavorito(widget.movie)
+                                .then((value) {
+                              if (value == true) {
+                                bloc.removeFavorito(widget.movie);
+                              } else {
+                                bloc.saveFavorito(widget.movie);
+                              }
                             });
                           },
                           backgroundColor: (snapshot.data != null)
@@ -115,7 +120,7 @@ class _MoviePageState extends State<MoviePage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SelectableText(
-                        movie.title,
+                        widget.movie.title,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 50,
@@ -142,7 +147,7 @@ class _MoviePageState extends State<MoviePage> {
                             ),
                           ),
                           SelectableText(
-                            "${movie.voteAverage}",
+                            "${widget.movie.voteAverage}",
                             style: TextStyle(
                               color: Colors.grey[200],
                               fontSize: 22,
@@ -172,7 +177,7 @@ class _MoviePageState extends State<MoviePage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SelectableText(
-                        "${movie.overview}",
+                        "${widget.movie.overview}",
                         style: TextStyle(
                           color: Colors.grey[200],
                           fontSize: 17,
@@ -200,7 +205,7 @@ class _MoviePageState extends State<MoviePage> {
                       padding: const EdgeInsets.all(8.0),
                       child: SelectableText(
                         Helpers.formatDate(
-                          "${movie.releaseDate}",
+                          "${widget.movie.releaseDate}",
                         ),
                         style: TextStyle(
                           color: Colors.grey[200],

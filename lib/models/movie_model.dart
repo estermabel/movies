@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:movies/models/video_model.dart';
 
 class Movie {
@@ -41,19 +43,30 @@ class Movie {
     video = json['video'];
   }
 
-  Map<String, dynamic> toJson() {
+  static Map<String, dynamic> toJson([Movie movie]) {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['backdrop_path'] = this.backdropPath;
-    data['id'] = this.id;
-    data['original_language'] = this.originalLanguage;
-    data['original_title'] = this.originalTitle;
-    data['overview'] = this.overview;
-    data['popularity'] = this.popularity;
-    data['poster_path'] = this.posterPath;
-    data['release_date'] = this.releaseDate;
-    data['title'] = this.title;
-    data['vote_average'] = this.voteAverage;
-    data['video'] = this.video;
+    data['backdrop_path'] = movie.backdropPath;
+    data['id'] = movie.id;
+    data['original_language'] = movie.originalLanguage;
+    data['original_title'] = movie.originalTitle;
+    data['overview'] = movie.overview;
+    data['popularity'] = movie.popularity;
+    data['poster_path'] = movie.posterPath;
+    data['release_date'] = movie.releaseDate;
+    data['title'] = movie.title;
+    data['vote_average'] = movie.voteAverage;
+    data['video'] = movie.video;
     return data;
   }
+
+  static String encode(List<Movie> movies) => json.encode(
+        movies
+            .map<Map<String, dynamic>>((movie) => Movie.toJson(movie))
+            .toList(),
+      );
+
+  static List<Movie> decode(String movies) =>
+      (json.decode(movies) as List<dynamic>)
+          .map<Movie>((item) => Movie.fromJson(item))
+          .toList();
 }
