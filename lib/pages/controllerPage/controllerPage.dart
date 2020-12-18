@@ -2,6 +2,7 @@ import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/pages/favoritosPage/favoritos_page.dart';
 import 'package:movies/pages/homePage/home_page.dart';
+import 'package:movies/pages/perfilPage/perfil_page.dart';
 import 'package:movies/utils/components/bottomNavBarItem_item.dart';
 import 'package:movies/utils/constants.dart';
 
@@ -15,6 +16,7 @@ class _ControllerPageState extends State<ControllerPage> {
   final List<Widget> _telas = [
     HomePage(),
     FavoritosPage(),
+    PerfilPage(),
   ];
   void onTabTapped(int index) {
     setState(() {
@@ -45,6 +47,7 @@ class _ControllerPageState extends State<ControllerPage> {
         items: <BubbleBottomBarItem>[
           bottomNavBarItem(Icons.home, "Home"),
           bottomNavBarItem(Icons.favorite, "Favoritos"),
+          bottomNavBarItem(Icons.person, "Perfil"),
         ],
       ),
     );
