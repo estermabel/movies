@@ -5,7 +5,7 @@ class CustomSharedPreferences {
   static save(String key, value) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(key, value);
-    debugPrint("SALVOU");
+    
   }
 
   static read(String key) async {
@@ -14,12 +14,7 @@ class CustomSharedPreferences {
     return result;
   }
 
-  static deleteElement(String key, value) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString(key, value);
-  }
-
-  static deleteList(String key) async {
+  static remove(String key) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove(key);
   }

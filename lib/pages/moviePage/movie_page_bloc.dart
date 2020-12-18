@@ -38,6 +38,7 @@ class MovieBloc {
       favButtonSink.add(true);
       await CustomSharedPreferences.save("movies", Movie.encode(moviesList));
     }
+    debugPrint("SALVOU");
   }
 
   Future checkFavorito(Movie movie) async {
@@ -69,7 +70,7 @@ class MovieBloc {
   }
 
   removeFavorito(Movie movie) async {
-    moviesList.remove(movie);
+    moviesList.removeWhere((item) => item.id == movie.id);
     favButtonSink.add(false);
     await CustomSharedPreferences.save("movies", Movie.encode(moviesList));
     debugPrint("DELETOU");
