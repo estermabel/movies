@@ -23,4 +23,10 @@ class CustomSharedPreferences {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool(kUsuarioLogin, value);
   }
+
+  static readUsuario() async {
+    final prefs = await SharedPreferences.getInstance();
+    var result = prefs.getBool(kUsuarioLogin);
+    return result;
+  }
 }

@@ -16,6 +16,8 @@ class HomeBloc {
     var response = await repository.getMovies();
     if (response != null) {
       moviesSink.add(response);
+    } else {
+      return null;
     }
   }
 

@@ -26,9 +26,10 @@ class _PerfilPageState extends State<PerfilPage> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(30, 170, 20, 30),
+                padding: const EdgeInsets.fromLTRB(60, 170, 60, 40),
                 child: GestureDetector(
                   onTap: () {
+                    CustomSharedPreferences.saveUsuario(false);
                     Navigator.of(context).pushAndRemoveUntil(
                         CupertinoPageRoute(
                           builder: (context) => LoginPage(),

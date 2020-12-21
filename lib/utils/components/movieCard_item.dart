@@ -6,6 +6,8 @@ import '../constants.dart';
 import '../helpers.dart';
 
 GestureDetector movieCard(BuildContext context, Movie movie) {
+  double height = MediaQuery.of(context).size.height;
+  double width = MediaQuery.of(context).size.width;
   return GestureDetector(
     onTap: () {
       Navigator.push(
@@ -31,80 +33,86 @@ GestureDetector movieCard(BuildContext context, Movie movie) {
             ),
           ],
         ),
-        child: Row(
-          children: [
-            Hero(
-              tag: '${movie.id}',
-              child: Container(
-                height: 200,
-                width: 130,
-                decoration: BoxDecoration(
-                  color: SALMON,
-                  borderRadius: BorderRadius.circular(20),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                      'https://image.tmdb.org/t/p/original${movie.backdropPath}',
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+          child: Row(
+            children: [
+              Hero(
+                tag: '${movie.id}',
+                child: Container(
+                  height: height * 0.23,
+                  width: width * 0.35,
+                  decoration: BoxDecoration(
+                    color: SALMON,
+                    borderRadius: BorderRadius.circular(20),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                        'https://image.tmdb.org/t/p/original${movie.backdropPath}',
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 214,
-                    child: Text(
-                      "${movie.title}",
-                      overflow: TextOverflow.clip,
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: height * 0.06,
+                      width: width * 0.44,
+                      child: Text(
+                        "${movie.title}",
+                        maxLines: 1,
+                        softWrap: false,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: SALMON,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: height * 0.01),
+                    Text(
+                      "Data de Lançamento:",
                       style: TextStyle(
-                        color: SALMON,
-                        fontSize: 20,
+                        color: Colors.white,
+                        fontSize: 15,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    "Data de Lançamento:",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
+                    SizedBox(height: 5),
+                    Text(
+                      Helpers.formatDate("${movie.releaseDate}"),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    Helpers.formatDate("${movie.releaseDate}"),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
+                    SizedBox(height: 10),
+                    Text(
+                      "Nota:",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    "Nota:",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
+                    SizedBox(height: 5),
+                    Text(
+                      "${movie.voteAverage}",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    "${movie.voteAverage}",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     ),
