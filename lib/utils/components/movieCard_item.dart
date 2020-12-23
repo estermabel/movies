@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies/models/movie_model.dart';
 import 'package:movies/pages/moviePage/movie_page.dart';
+import 'package:movies/utils/components/cashedImage_item.dart';
 
 import '../constants.dart';
 import '../helpers.dart';
@@ -39,19 +40,12 @@ GestureDetector movieCard(BuildContext context, Movie movie) {
             children: [
               Hero(
                 tag: '${movie.id}',
-                child: Container(
+                child: CashedImage(
                   height: height * 0.23,
                   width: width * 0.35,
-                  decoration: BoxDecoration(
-                    color: SALMON,
-                    borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                        'https://image.tmdb.org/t/p/original${movie.backdropPath}',
-                      ),
-                    ),
-                  ),
+                  border: 20.0,
+                  url:
+                      'https://image.tmdb.org/t/p/original${movie.backdropPath}',
                 ),
               ),
               Padding(

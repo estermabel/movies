@@ -11,6 +11,7 @@ import 'package:movies/utils/components/appBar_item.dart';
 import 'package:movies/utils/components/movieCard_item.dart';
 import 'package:movies/utils/constants.dart';
 import 'package:movies/utils/helpers.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -79,7 +80,7 @@ class _HomePageState extends State<HomePage> {
             stream: bloc.moviesStream,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                var movies = snapshot.data;
+                List<Movie> movies = snapshot.data;
                 if (movies.isNotEmpty) {
                   return Container(
                     height: MediaQuery.of(context).size.height,

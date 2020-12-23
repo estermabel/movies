@@ -10,6 +10,7 @@ import 'package:movies/models/video_model.dart';
 import 'package:movies/pages/favoritosPage/favoritos_bloc.dart';
 import 'package:movies/pages/moviePage/movie_page_bloc.dart';
 import 'package:movies/utils/components/appBar_item.dart';
+import 'package:movies/utils/components/cashedImage_item.dart';
 import 'package:movies/utils/components/youtubeVideo_item.dart';
 import 'package:movies/utils/constants.dart';
 import 'package:movies/utils/helpers.dart';
@@ -96,18 +97,12 @@ class _MoviePageState extends State<MoviePage> {
                 children: [
                   Hero(
                     tag: '${widget.movie.id}',
-                    child: Container(
+                    child: CashedImage(
                       height: MediaQuery.of(context).size.height * 0.3,
                       width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: SALMON,
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                            'https://image.tmdb.org/t/p/original${widget.movie.backdropPath}',
-                          ),
-                        ),
-                      ),
+                      border: 0.0,
+                      url:
+                          'https://image.tmdb.org/t/p/original${widget.movie.backdropPath}',
                     ),
                   ),
                   Padding(

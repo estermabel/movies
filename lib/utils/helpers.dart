@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 
 class Helpers {
   static String formatDate(String releaseDate) {
-    var split = releaseDate.split('-');
-    var newReleaseDate = "${split[2]}/${split[1]}/${split[0]}";
     try {
+      var split = releaseDate.split('-');
+      var newReleaseDate = "${split[2]}/${split[1]}/${split[0]}";
       return newReleaseDate;
     } catch (e) {
-      return releaseDate;
+      return "Não disponível.";
     }
   }
 
