@@ -5,6 +5,8 @@ import 'package:movies/pages/homePage/home_page.dart';
 import 'package:movies/pages/loginPage/loginPage.dart';
 import 'package:movies/pages/splashPage/splash_bloc.dart';
 import 'package:movies/utils/constants.dart';
+import 'package:movies/utils/customSharedPreferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -13,32 +15,28 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   SplashBloc bloc = SplashBloc();
+
+  SharedPreferences loginData;
+
   @override
   void initState() {
     super.initState();
     bloc.getUsuarioLogin();
-    _loadData();
-  }
+    bloc.splashStream.listen((event) {
+      debugPrint(event.toString());
+      if (event) {
+        Navigator.of(context).pushReplacement(
+          CupertinoPageRoute(
+            builder: (context) => ControllerPage(),
+          ),
+        );
+      } else {
+        _loadData();
+      }
+    });
 
-  // _userNavigation(usuarioLogin, context) {
-  //   StreamBuilder(
-  //     builder: (context, snapshot) {
-  //       if (snapshot.hasData) {
-  //         if (snapshot.data) {
-  //           return Navigator.of(context).pushReplacement(
-  //             CupertinoPageRoute(
-  //               builder: (context) => ControllerPage(),
-  //             ),
-  //           );
-  //         }
-  //       }
-  //     },
-  //   );
-  //   if (usuarioLogin) {
-  //   } else {
-  //     _loadData();
-  //   }
-  // }
+    //_loadData();
+  }
 
   _loadData() async {
     await Future.delayed(new Duration(seconds: 4));

@@ -129,13 +129,15 @@ class _LoginPageState extends State<LoginPage> {
                           showDialog(
                             context: context,
                             builder: (context) {
+                              var text = Helpers.loginAlertDialogMessage(
+                                  _emailController, _senhaController);
+
                               return AlertDialog(
                                 title: Text(
                                   "Campos inválidos",
                                   textAlign: TextAlign.center,
                                 ),
-                                content: Text(
-                                    "Campos de e-mail ou senha inválidos ou incorretos! Insira-os novamente."),
+                                content: Text(text),
                                 actions: [
                                   FlatButton(
                                     child: Text("Ok"),

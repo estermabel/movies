@@ -22,11 +22,12 @@ class CustomSharedPreferences {
   static saveUsuario(value) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool(kUsuarioLogin, value);
+    debugPrint("Salvou: " + value.toString());
   }
 
   static readUsuario() async {
     final prefs = await SharedPreferences.getInstance();
-    var result = prefs.getBool(kUsuarioLogin);
+    var result = (prefs.getBool(kUsuarioLogin) ?? false);
     return result;
   }
 }

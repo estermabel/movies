@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/pages/loginPage/loginPage.dart';
 import 'package:movies/pages/perfilPage/perfil_page_bloc.dart';
+import 'package:movies/pages/splashPage/splash_bloc.dart';
 import 'package:movies/utils/components/appBar_item.dart';
 import 'package:movies/utils/components/loginBotao_item.dart';
 import 'package:movies/utils/constants.dart';
@@ -14,6 +15,7 @@ class PerfilPage extends StatefulWidget {
 
 class _PerfilPageState extends State<PerfilPage> {
   PerfilBloc bloc = PerfilBloc();
+  SplashBloc splashBloc = SplashBloc();
 
   @override
   Widget build(BuildContext context) {
