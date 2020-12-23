@@ -16,6 +16,8 @@ const kCHAVE = "b110ece4de4ab7fee86d41cdad01500f";
 
 const kUsuarioLogin = "usuarioLogin";
 
+const kUsuarioBiometria = "usuarioBiometria";
+
 const IconThemeData kSELECTED_ICON = IconThemeData(
   color: SALMON,
   size: 40,
