@@ -253,9 +253,9 @@ class _LoginPageState extends State<LoginPage> {
                                 SizedBox(height: height * 0.06),
                                 FlatButton(
                                   onPressed: () async {
+                                    bloc.loginSink.add(false);
                                     await CustomSharedPreferences
                                         .saveUsuarioBiometria(false);
-                                    bloc.loginSink.add(false);
                                   },
                                   child: Text(
                                     "Acessar com e-mail e senha?",
