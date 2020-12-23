@@ -11,7 +11,6 @@ class SplashBloc {
   Future getUsuarioLogin() async {
     await CustomSharedPreferences.readUsuario().then((response) async {
       splashSink.add(response);
-      debugPrint(response.toString());
     });
   }
 

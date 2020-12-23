@@ -34,8 +34,12 @@ class _SplashPageState extends State<SplashPage> {
         _loadData();
       }
     });
+  }
 
-    //_loadData();
+  @override
+  void dispose() {
+    super.dispose();
+    bloc.dispose();
   }
 
   _loadData() async {

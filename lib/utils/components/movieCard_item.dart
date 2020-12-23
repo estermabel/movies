@@ -21,6 +21,7 @@ GestureDetector movieCard(BuildContext context, Movie movie) {
     child: Padding(
       padding: const EdgeInsets.all(18.0),
       child: Container(
+        height: height * 0.25,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           color: LIGHT_BLUE,
@@ -41,7 +42,7 @@ GestureDetector movieCard(BuildContext context, Movie movie) {
               Hero(
                 tag: '${movie.id}',
                 child: CashedImage(
-                  height: height * 0.23,
+                  height: height * 0.25,
                   width: width * 0.35,
                   border: 20.0,
                   url:
