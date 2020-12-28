@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:movies/pages/controllerPage/controllerPage.dart';
 import 'package:movies/pages/loginPage/login_page_bloc.dart';
+import 'package:movies/pages/onBoardingPage/onboarding_page.dart';
 import 'package:movies/utils/components/loginBotao_item.dart';
 import 'package:movies/utils/constants.dart';
 import 'package:movies/utils/customSharedPreferences.dart';
@@ -146,11 +147,24 @@ class _LoginPageState extends State<LoginPage> {
                           await CustomSharedPreferences.saveUsuarioBiometria(
                               true);
                           await CustomSharedPreferences.saveUsuario(true);
-                          Navigator.of(context).pushAndRemoveUntil(
-                              CupertinoPageRoute(
-                                builder: (context) => ControllerPage(),
-                              ),
-                              (route) => false);
+
+                          await CustomSharedPreferences.readUsuarioOnBoarding()
+                              .then((value) async {
+                            debugPrint(value.toString());
+                            if (value) {
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  CupertinoPageRoute(
+                                    builder: (context) => ControllerPage(),
+                                  ),
+                                  (route) => false);
+                            } else {
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  CupertinoPageRoute(
+                                    builder: (context) => OnBoardingPage(),
+                                  ),
+                                  (route) => false);
+                            }
+                          });
                         } else {
                           debugPrint("algo de errado aconteceu!");
                         }
@@ -173,11 +187,22 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.of(context).pop();
                     await CustomSharedPreferences.saveUsuarioBiometria(false);
                     await CustomSharedPreferences.saveUsuario(true);
-                    Navigator.of(context).pushAndRemoveUntil(
-                        CupertinoPageRoute(
-                          builder: (context) => ControllerPage(),
-                        ),
-                        (route) => false);
+                    await CustomSharedPreferences.readUsuarioOnBoarding()
+                        .then((value) async {
+                      if (value) {
+                        Navigator.of(context).pushAndRemoveUntil(
+                            CupertinoPageRoute(
+                              builder: (context) => ControllerPage(),
+                            ),
+                            (route) => false);
+                      } else {
+                        Navigator.of(context).pushAndRemoveUntil(
+                            CupertinoPageRoute(
+                              builder: (context) => OnBoardingPage(),
+                            ),
+                            (route) => false);
+                      }
+                    });
                   },
                 ),
               ],
@@ -288,9 +313,10 @@ class _LoginPageState extends State<LoginPage> {
                                 await CustomSharedPreferences
                                     .saveUsuarioBiometria(true);
                                 await CustomSharedPreferences.saveUsuario(true);
+
                                 Navigator.of(context).pushAndRemoveUntil(
                                     CupertinoPageRoute(
-                                      builder: (context) => ControllerPage(),
+                                      builder: (context) => OnBoardingPage(),
                                     ),
                                     (route) => false);
                               } else {
