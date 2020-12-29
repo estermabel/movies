@@ -10,7 +10,7 @@ import 'package:movies/pages/moviePage/movie_page.dart';
 import 'package:movies/utils/components/appBar_item.dart';
 import 'package:movies/utils/components/movieCard_item.dart';
 import 'package:movies/utils/constants.dart';
-import 'package:movies/utils/helpers.dart';
+import 'package:movies/utils/helpers/helpers.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatefulWidget {
