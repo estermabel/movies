@@ -18,6 +18,8 @@ const kUsuarioLogin = "usuarioLogin";
 
 const kUsuarioBiometria = "usuarioBiometria";
 
+const kUsuarioOnBoarding = "usuarioOnBoarding";
+
 const IconThemeData kSELECTED_ICON = IconThemeData(
   color: SALMON,
   size: 40,

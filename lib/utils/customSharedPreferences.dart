@@ -29,7 +29,7 @@ class CustomSharedPreferences {
     return result;
   }
 
-  //Salva se o usuário quer utilizar biometris
+  //Salva se o usuário quer utilizar biometria
   static saveUsuarioBiometria(value) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool(kUsuarioBiometria, value);
@@ -39,6 +39,19 @@ class CustomSharedPreferences {
   static readUsuarioBiometria() async {
     final prefs = await SharedPreferences.getInstance();
     var result = (prefs.getBool(kUsuarioBiometria) ?? false);
+    return result;
+  }
+
+  //Salva se o usuário já viu o onBoarding
+  static saveUsuarioOnBoarding(value) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool(kUsuarioOnBoarding, value);
+  }
+
+  //Verifica se o usuário já viu o onBoarding
+  static readUsuarioOnBoarding() async {
+    final prefs = await SharedPreferences.getInstance();
+    var result = (prefs.getBool(kUsuarioOnBoarding) ?? false);
     return result;
   }
 }
