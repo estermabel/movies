@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:movies/models/movie_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -55,30 +57,60 @@ class DatabaseHelper {
           ''');
   }
 
-  Future<int> insert(Map<String, dynamic> row) async {
+  static Future<int> insert(Map<String, dynamic> row) async {
     Database db = await instance.database;
-    return await db.insert(table, row);
+    var response = await db.insert(table, row);
+    debugPrint("SALVOU - $response");
+    return response;
   }
 
-  Future<List<Map<String, dynamic>>> queryAllRows() async {
+  static Future<List<Map<String, dynamic>>> getAllMovies() async {
     Database db = await instance.database;
-    return await db.query(table);
+    var response = await db.query(table);
+    print(response);
+    return response;
   }
 
-  Future<int> queryRowCount() async {
+  static Future<bool> checkMovieById(Movie movie) async {
     Database db = await instance.database;
-    return Sqflite.firstIntValue(
-        await db.rawQuery('SELECT COUNT(*) FROM $table'));
+    List<Map> maps = await db
+        .rawQuery('SELECT (*) FROM $table WHERE $columnId = ${movie.id}');
+    if (maps.length > 0) {
+      debugPrint("true");
+      return true;
+    } else {
+      debugPrint("false");
+      return false;
+    }
   }
 
-  Future<int> update(Map<String, dynamic> row) async {
+  static Future<int> getRowCount() async {
+    Database db = await instance.database;
+    var response =
+        Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $table'));
+    debugPrint("TOTAL DE LINHAS: " + response.toString());
+    return response;
+  }
+
+  static Future<int> update(Map<String, dynamic> row) async {
     Database db = await instance.database;
     int id = row[columnId];
-    return await db.update(table, row, where: '$columnId = ?', whereArgs: [id]);
+    var response =
+        await db.update(table, row, where: '$columnId = ?', whereArgs: [id]);
+    debugPrint("ATUALIZOU");
+    return response;
   }
 
-  Future<int> delete(int id) async {
+  static Future<int> delete(int id) async {
     Database db = await instance.database;
-    return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
+    var response =
+        await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
+    debugPrint("DELETOU");
+    return response;
+  }
+
+  Future close() async {
+    Database db = await this.database;
+    db.close();
   }
 }

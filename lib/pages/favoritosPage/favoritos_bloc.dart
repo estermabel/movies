@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:movies/models/movie_model.dart';
+import 'package:movies/utils/customDatabase.dart';
 import 'package:movies/utils/customSharedPreferences.dart';
 
 class FavoritosBloc {
@@ -16,6 +17,17 @@ class FavoritosBloc {
         favSink.add(moviesList);
       } else {
         favSink.add(List<Movie>());
+      }
+    });
+  }
+
+  Future getFavoritosDB() async {
+    await CustomDatabase.getAllMovies().then((read) async {
+      if (read != null) {
+        var moviesList = read;
+        favSink.add(moviesList);
+      } else {
+        favSink.add(List<Movie>.empty(growable: true));
       }
     });
   }

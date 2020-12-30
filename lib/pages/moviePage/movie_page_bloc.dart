@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:movies/api/video_repository.dart';
 import 'package:movies/models/movie_model.dart';
 import 'package:movies/models/video_model.dart';
+import 'package:movies/utils/customDatabase.dart';
 import 'package:movies/utils/customSharedPreferences.dart';
 
 class MovieBloc {
@@ -26,6 +27,20 @@ class MovieBloc {
     if (response != null) {
       videoSink.add(response);
     }
+  }
+
+  Future<int> saveFavoritoDB(Movie movie) async {
+    return await CustomDatabase.inserir(movie);
+  }
+
+  Future checkFavoritoDB(Movie movie) async {
+    await CustomDatabase.checkMovieById(movie).then((read) async {
+      favButtonSink.add(read);
+    });
+  }
+
+  Future<int> removeFavoritoDB(Movie movie) async {
+    return await CustomDatabase.delete(movie);
   }
 
   Future saveFavorito(Movie movie) async {

@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:movies/models/video_model.dart';
-
 class Movie {
   int id;
   String backdropPath;
