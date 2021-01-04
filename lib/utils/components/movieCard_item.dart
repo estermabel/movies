@@ -4,7 +4,7 @@ import 'package:movies/pages/moviePage/movie_page.dart';
 import 'package:movies/utils/components/cashedImage_item.dart';
 
 import '../constants.dart';
-import '../helpers.dart';
+import '../helpers/helpers.dart';
 
 GestureDetector movieCard(BuildContext context, Movie movie) {
   double height = MediaQuery.of(context).size.height;

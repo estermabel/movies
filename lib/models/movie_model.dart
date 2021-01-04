@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:movies/models/video_model.dart';
-
 class Movie {
   int id;
   String backdropPath;
@@ -28,6 +26,36 @@ class Movie {
     this.voteAverage,
     this.video,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'backdropPath': backdropPath,
+      'originalLanguage': originalLanguage,
+      'originalTitle': originalTitle,
+      'overview': overview,
+      'popularity': popularity,
+      'posterPath': posterPath,
+      'releaseDate': releaseDate,
+      'title': title,
+      'voteAverage': voteAverage,
+      'video': video,
+    };
+  }
+
+  Movie.fromMap(Map<String, dynamic> map) {
+    id = map['id'];
+    backdropPath = map['backdrop_path'];
+    originalLanguage = map['original_language'];
+    originalTitle = map['original_title'];
+    overview = map['overview'];
+    popularity = map['popularity'];
+    posterPath = map['poster_path'];
+    releaseDate = map['release_date'];
+    title = map['title'];
+    voteAverage = map['vote_average'].toDouble();
+    video = map['video'];
+  }
 
   Movie.fromJson(Map<String, dynamic> json) {
     backdropPath = json['backdrop_path'];

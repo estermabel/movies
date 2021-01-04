@@ -8,7 +8,7 @@ import 'package:movies/pages/onBoardingPage/onboarding_page.dart';
 import 'package:movies/utils/components/loginBotao_item.dart';
 import 'package:movies/utils/constants.dart';
 import 'package:movies/utils/customSharedPreferences.dart';
-import 'package:movies/utils/helpers.dart';
+import 'package:movies/utils/helpers/helpers.dart';
 import 'package:shimmer/shimmer.dart';
 
 class LoginPage extends StatefulWidget {

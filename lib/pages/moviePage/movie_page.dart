@@ -13,7 +13,7 @@ import 'package:movies/utils/components/appBar_item.dart';
 import 'package:movies/utils/components/cashedImage_item.dart';
 import 'package:movies/utils/components/youtubeVideo_item.dart';
 import 'package:movies/utils/constants.dart';
-import 'package:movies/utils/helpers.dart';
+import 'package:movies/utils/helpers/helpers.dart';
 
 class MoviePage extends StatefulWidget {
   final Movie movie;
