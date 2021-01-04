@@ -226,7 +226,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
           child: Form(
             key: _formKey,
-            //autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -314,11 +313,26 @@ class _LoginPageState extends State<LoginPage> {
                                     .saveUsuarioBiometria(true);
                                 await CustomSharedPreferences.saveUsuario(true);
 
-                                Navigator.of(context).pushAndRemoveUntil(
-                                    CupertinoPageRoute(
-                                      builder: (context) => OnBoardingPage(),
-                                    ),
-                                    (route) => false);
+                                await CustomSharedPreferences
+                                        .readUsuarioOnBoarding()
+                                    .then((value) async {
+                                  debugPrint(value.toString());
+                                  if (value) {
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                        CupertinoPageRoute(
+                                          builder: (context) =>
+                                              ControllerPage(),
+                                        ),
+                                        (route) => false);
+                                  } else {
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                        CupertinoPageRoute(
+                                          builder: (context) =>
+                                              OnBoardingPage(),
+                                        ),
+                                        (route) => false);
+                                  }
+                                });
                               } else {
                                 debugPrint("algo de errado aconteceu!");
                               }
